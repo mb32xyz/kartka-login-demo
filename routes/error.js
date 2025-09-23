@@ -1,7 +1,7 @@
-const express = require('express');
-const createError = require('http-errors');
+import createError from 'http-errors';
+import {Router} from 'express';
 
-const router = express.Router();
+const router = Router();
 
 router.use(function (req, res, next) {
   next(createError(404));
@@ -15,4 +15,4 @@ router.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = router;
+export default router;

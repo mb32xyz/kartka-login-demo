@@ -1,12 +1,16 @@
-require('dotenv').config()
-const express = require('express');
-const session = require('express-session')
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const indexRouter = require('./routes/index');
-const loginRouter = require('./routes/kartka-login');
-const errorRouter = require('./routes/error');
+import 'dotenv/config'
+import express from 'express';
+import session from 'express-session';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import indexRouter from './routes/index.js';
+import loginRouter from './routes/kartka-login.js';
+import errorRouter from './routes/error.js';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -15,14 +19,14 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(cookieParser());
 app.use(session({
   secret: process.env.COOKIE_SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {secure: false, httpOnly: true}
+  resave: true,
+  saveUninitialized: false,
+  cookie: {secure: true, httpOnly: true}
 }))
 app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -31,4 +35,4 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use(errorRouter);
 
-module.exports = app;
+export default app;
