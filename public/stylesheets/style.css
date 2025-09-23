@@ -1,8 +1,215 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+:root {
+    --color-main: #128277; /* primary */
+    --color-secondary: #52958b; /* secondary */
+    --color-highlight: #004d47; /* highlight */
+    --color-muted: #b9c4c9; /* gray/inactive */
+    --color-bg: #f6fbfa;
+    --color-text: #0f2a28;
+    --radius: 14px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background: #3fa697;
+}
+
+html, body {
+    min-height: 100%;
+}
+
+body.page {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    line-height: 1.6;
+    color: var(--color-text);
+    background: linear-gradient(180deg, var(--color-bg), #e9f3f1);
+}
+
+.container {
+    width: 100%;
+    max-width: 920px;
+    margin-inline: auto;
+    padding: 16px;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(6px);
+    background: rgba(246, 251, 250, 0.7);
+    border-bottom: 1px solid rgba(185, 196, 201, 0.5);
+    z-index: 10;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: var(--color-main);
+}
+
+.logo {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--color-main);
+    color: white;
+    font-weight: 800;
+}
+
+.brand-text {
+    font-size: 16px;
+    letter-spacing: .2px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid rgba(185, 196, 201, 0.6);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 16px 0;
+    box-shadow: var(--shadow);
+}
+
+.title {
+    font-size: 28px;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    color: var(--color-highlight);
+}
+
+.subtitle {
+    font-size: 20px;
+    margin: 0 0 8px;
+    color: var(--color-main);
+}
+
+.lead {
+    font-size: 16px;
+    color: var(--color-secondary);
+}
+
+.muted {
+    color: var(--color-muted);
+}
+
+.small {
+    font-size: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.actions .btn {
+    width: 100%;
+    flex: 1 1 100%;
+    min-height: 48px;
+}
+
+.btn {
+    appearance: none;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .06s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background: var(--color-main);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(18, 130, 119, .25);
+}
+
+.btn-primary:hover {
+    background: #0f6f68;
+    color: #fff;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--color-highlight);
+    border-color: var(--color-secondary);
+}
+
+.btn-ghost:hover {
+    background: rgba(82, 149, 139, .1);
+}
+
+.note {
+    background: rgba(185, 196, 201, .2);
+    border: 1px dashed var(--color-muted);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.highlight {
+    color: var(--color-highlight);
+}
+
+.site-footer {
+    padding: 18px 0 18px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--color-bg), #e9f3f1);
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding: 24px;
+    }
+
+    .title {
+        font-size: 34px;
+    }
+
+    .lead {
+        font-size: 18px;
+    }
+
+    .card {
+        padding: 28px;
+    }
+
+    .brand-text {
+        font-size: 18px;
+    }
 }
 
 a {
-  color: #00B7FF;
+    color: var(--color-main);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--color-highlight);
+    text-decoration: underline;
 }

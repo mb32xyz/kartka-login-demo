@@ -1,0 +1,15 @@
+<footer class="site-footer">
+    <div class="container">
+        <p class="small muted">© <span id="year"></span> Мая Картка · дэма</p>
+    </div>
+</footer>
+
+<script>
+  (function () {
+    var y = new Date().getFullYear();
+    var el = document.getElementById('year');
+    if (el) el.textContent = y;
+  })();
+</script>
+</body>
+</html>
