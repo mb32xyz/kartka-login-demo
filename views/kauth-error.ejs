@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+
+<main class="container">
+    <section class="card intro" aria-labelledby="login-error-title">
+        <h1 id="login-error-title"
+            class="title"><%= errorCode %> <%- include('partials/kauth-error-title', { error }) %></h1>
+        <%- include('partials/kauth-error-details', { error }) %>
+        <% if(errorDescription){ %>
+            <div class="note" role="note">
+                <strong class="highlight">Дэталі памылкі:</strong>
+                <p><%= errorDescription %></p>
+            </div>
+        <% } %>
+
+        <div class="actions">
+            <a class="btn btn-primary" href="/login" role="button">Паспрабаваць яшчэ раз</a>
+            <a class="btn btn-ghost" href="/">На галоўную</a>
+        </div>
+    </section>
+</main>
+
+<%- include('partials/footer') %>

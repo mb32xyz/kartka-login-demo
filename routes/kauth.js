@@ -3,7 +3,7 @@ import OAuth2Strategy from 'passport-oauth2';
 
 import {Router} from 'express';
 import {loadCitizen, persistCitizen} from '../services/citizen-repository.js'
-import {retrieveClaims} from "../services/kartka-service.js";
+import {retrieveClaims} from "../services/kauth-service.js";
 
 
 // here we are initing our kartka client
@@ -37,11 +37,30 @@ router.use(passport.session());
 
 router.get('/', passport.authenticate('oauth2'));
 
-router.get('/callback',
-  passport.authenticate('oauth2', {
-    successRedirect: '/',
-    failureRedirect: '/error'
-  })
+router.get('/error', (req, res) => {
+  const errorCode = req.query.errorCode || '';
+  const error = req.query.error || 'no-error';
+  const errorDescription = req.query.errorDescription || '';
+
+  res.render('kauth-error', {
+    title: 'Памылка аўтарызацыі',
+    errorCode,
+    error,
+    errorDescription
+  });
+});
+
+router.get('/callback', (req, res, cb) => {
+    if (req.query.code) {
+      passport.authenticate('oauth2', {
+        successRedirect: '/',
+        failureRedirect: '/error'
+      })(req, res, cb);
+    } else {
+      const query = new URLSearchParams(req.query);
+      res.redirect('/login/error?' + query.toString());
+    }
+  }
 );
 
 export default router;

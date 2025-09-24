@@ -1,0 +1,29 @@
+<% switch (error) {
+case 'technical-issues' : %>
+Тэхнічныя праблемы не серверы
+<% break;
+
+case 'login.invalid-kartka' : %>
+Пашкоджаны або не сапраўдны токен
+<% break;
+
+case 'login.can-not-decrypt-kartka' : %>
+Памылка разшыфравання токена
+<% break;
+
+case 'login.rejection' : %>
+Вы адмовіліся верыфікавацца
+<% break;
+
+case 'consent.invalid-scopes' : %>
+Памылка падчас атрымання дадзеных
+<% break;
+
+case 'consent.rejection' : %>
+Вы адмовіліся перадаваць дадзеныя
+<% break;
+
+default : %>
+Невядомая памылка
+<% break;
+} %>

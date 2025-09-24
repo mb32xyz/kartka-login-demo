@@ -1,5 +1,5 @@
 import {JSONFilePreset} from 'lowdb/node';
-import {deriveKey, mac, encrypt, decrypt} from './crypto.js';
+import {deriveKey, mac, encrypt, decrypt} from './crypto-service.js';
 import { randomUUID } from 'crypto';
 
 // put it to your repository level with the read DB and real queries

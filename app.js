@@ -5,7 +5,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import indexRouter from './routes/index.js';
-import loginRouter from './routes/kartka-login.js';
+import kauthRouter from './routes/kauth.js';
 import errorRouter from './routes/error.js';
 import { fileURLToPath } from 'url';
 
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // here is all  the logic
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
+app.use('/login', kauthRouter);
 app.use(errorRouter);
 
 export default app;
