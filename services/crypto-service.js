@@ -6,6 +6,10 @@ const keyLen = 32;
 const ivLen = 12;
 const masterKey = process.env.MASTER_KEY;
 
+if (!masterKey) {
+  throw new Error('MASTER_KEY is required');
+}
+
 export function deriveKey(context) {
   const derivedKey = hkdfSync(hashAlgorithm, masterKey, 'saltysalt', context, keyLen);
   return Buffer.from(derivedKey).toString('base64');

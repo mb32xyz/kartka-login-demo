@@ -1,19 +1,21 @@
 import 'dotenv/config'
 import express from 'express';
 import session from 'express-session';
+import sessionFileStore from 'session-file-store';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import indexRouter from './routes/index.js';
 import kauthRouter from './routes/kauth.js';
 import errorRouter from './routes/error.js';
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 
+app.set('trust proxy', 1);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -21,6 +23,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({
+  store: new sessionFileStore(session)({
+    path: path.join(__dirname, 'db')
+  }),
   secret: process.env.COOKIE_SESSION_SECRET,
   resave: true,
   saveUninitialized: false,
@@ -28,7 +33,6 @@ app.use(session({
 }))
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 // here is all  the logic
 app.use('/', indexRouter);

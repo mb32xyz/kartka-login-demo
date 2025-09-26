@@ -1,0 +1,50 @@
+services:
+  kauth-demo:
+    build: .
+    container_name: kauth-demo
+    env_file:
+      - .env
+    volumes:
+      - db_data:/app/db
+    expose:
+      - "3030"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:3030 || exit 1"]
+      interval: 30s
+      timeout: 2s
+      retries: 3
+      start_period: 5s
+      start_interval: 2s
+
+  kauth-nginx:
+    image: nginx:alpine
+    container_name: kauth-nginx
+    depends_on:
+      - kauth-demo
+    ports:
+      - "${PUBLIC_IP}:80:80" # do I need to parametrize 80 here?
+      - "${PUBLIC_IP}:${PUBLIC_PORT}:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    secrets:
+      - source: tls_crt
+        target: /etc/nginx/certs/tls.crt
+      - source: tls_key
+        target: /etc/nginx/certs/tls.key
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null https://127.0.0.1 --no-check-certificate || exit 1"]
+      interval: 30s
+      timeout: 2s
+      retries: 3
+      start_period: 5s
+      start_interval: 2s
+
+volumes:
+  db_data:
+    name: db_data
+
+secrets:
+  tls_crt:
+    file: ${CERTIFICATE_FILE}
+  tls_key:
+    file: ${PRIVATE_KEY_FILE}
