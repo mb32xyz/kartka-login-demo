@@ -3,7 +3,7 @@ import {deriveKey, mac, encrypt, decrypt} from './crypto-service.js';
 import { randomUUID } from 'crypto';
 
 // put it to your repository level with the read DB and real queries
-const db = await JSONFilePreset('db/db.json', {citizens: {}, kartkaHashes: {}});
+const db = await JSONFilePreset(process.env.DB_FOLDER + '/db.json', {citizens: {}, kartkaHashes: {}});
 // that is demo project, so we are just deriving new keys. But you want something more mature
 // https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#separation-of-keys-and-data
 const encryptionKey = deriveKey('personal data encryption key');

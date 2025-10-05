@@ -1,11 +1,14 @@
 services:
   kauth-demo:
-    build: .
+    build:
+      context: .
+      args:
+        DB_FOLDER: ${DB_FOLDER}
     container_name: kauth-demo
     env_file:
       - .env
     volumes:
-      - db_data:/app/db
+      - db_data:${DB_FOLDER}
     expose:
       - "3030"
     healthcheck:

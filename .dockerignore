@@ -16,3 +16,6 @@ temp
 example.env
 nginx
 db
+docker-compose.yml
+README.md
+db
